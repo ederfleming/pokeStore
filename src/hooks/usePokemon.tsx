@@ -35,7 +35,7 @@ export function PokemonProvider({
 
   useEffect(() => {
     async function loadPokemons() {
-      const response = await api.get("/pokemon?limit=151");
+      const response = await api.get(`/pokemon?limit=151`);
 
       const pokemonsFormated = response.data.results.map(
         (pokemon: PokemonProps, index: number) => ({

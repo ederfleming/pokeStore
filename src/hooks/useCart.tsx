@@ -13,6 +13,7 @@ interface UpdatePokemonsAmount {
 
 interface CartContextData {
   cart: PokemonProps[];
+  clearCart: () => void;
   addPokemon: (pokemonId: number) => Promise<void>;
   removePokemon: (pokemonId: number) => void;
   updatePokemonsAmount: ({ pokemonId, amount }: UpdatePokemonsAmount) => void;
@@ -32,6 +33,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     return [];
   });
 
+  const clearCart = () => {
+    setCart([]);
+    localStorage.setItem("@PokeStore:cart", JSON.stringify([]));
+  };
   const addPokemon = async (pokemonId: number) => {
     try {
       let isProductInCart = false;
@@ -122,7 +127,13 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   return (
     <CartContext.Provider
-      value={{ cart, addPokemon, removePokemon, updatePokemonsAmount }}>
+      value={{
+        cart,
+        clearCart,
+        addPokemon,
+        removePokemon,
+        updatePokemonsAmount,
+      }}>
       {children}
     </CartContext.Provider>
   );

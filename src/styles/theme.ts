@@ -1,40 +1,19 @@
-export default {
+export const fire = {
   grid: {
     container: "130rem",
     gutter: "3.2rem",
   },
-  border: {
-    radius: "0.4rem",
-  },
   font: {
     family:
       "Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-    weight: {
-      light: 300,
-      normal: 400,
-      bold: 600,
-    },
-    sizes: {
-      xsmall: "1.2rem", //12px
-      small: "1.4rem",
-      medium: "1.6rem",
-      large: "1.8rem",
-      xlarge: "2.0rem",
-      xxlarge: "2.8rem",
-      huge: "5.2rem",
-    },
   },
   colors: {
-    primary: "#F231A5",
-    secondary: "#3CD3C1",
-    mainBg: "#06092B",
-    lightBg: "#F2F2F2",
+    primary: "#DA3330",
+    secondary: "#F9C73F",
     white: "#FAFAFA",
-    black: "#030517",
-    lightGray: "#EAEAEA",
-    gray: "#8F8F8F",
-    darkGray: "#2E2F42",
-    red: "#FF6347",
+    lightGray: "#DDD",
+    gray: "#666",
+    darkGray: "#222",
   },
   spacings: {
     xxsmall: "0.8rem",
@@ -45,15 +24,60 @@ export default {
     xlarge: "4.8rem",
     xxlarge: "5.6rem",
   },
-  layers: {
-    base: 10,
-    menu: 20,
-    overlay: 30,
-    modal: 40,
-    alwaysOnTop: 50,
+};
+
+export const leaf = {
+  grid: {
+    container: "130rem",
+    gutter: "3.2rem",
   },
-  transition: {
-    default: "0.3s ease-in-out",
-    fast: "0.1s ease-in-out",
+  font: {
+    family:
+      "Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
   },
-} as const;
+  colors: {
+    primary: "#478A0B",
+    secondary: "#F9C73F",
+    white: "#FAFAFA",
+    lightGray: "#DDD",
+    gray: "#666",
+    darkGray: "#222",
+  },
+  spacings: {
+    xxsmall: "0.8rem",
+    xsmall: "1.6rem",
+    small: "2.4rem",
+    medium: "3.2rem",
+    large: "4.0rem",
+    xlarge: "4.8rem",
+    xxlarge: "5.6rem",
+  },
+};
+
+export const water = {
+  grid: {
+    container: "130rem",
+    gutter: "3.2rem",
+  },
+  font: {
+    family:
+      "Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+  },
+  colors: {
+    primary: "#7B6CAF",
+    secondary: "#F9C73F",
+    white: "#FAFAFA",
+    lightGray: "#DDD",
+    gray: "#666",
+    darkGray: "#222",
+  },
+  spacings: {
+    xxsmall: "0.8rem",
+    xsmall: "1.6rem",
+    small: "2.4rem",
+    medium: "3.2rem",
+    large: "4.0rem",
+    xlarge: "4.8rem",
+    xxlarge: "5.6rem",
+  },
+};

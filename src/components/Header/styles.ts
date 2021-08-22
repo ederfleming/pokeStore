@@ -1,43 +1,57 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 
 export const Container = styled.header`
-  max-width: 130rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px auto;
-
-  a {
-    transition: opacity 0.2s;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto 0;
+    background: ${theme.colors.primary};
+    padding: 0 32px;
+  `}
 `;
 
 export const LogoContainer = styled.img`
-  height: 64px;
+  height: 80px;
+  margin-right: 36px;
 `;
 
-export const Cart = styled(Link)`
+export const SearchBarComponent = styled.input`
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #bdbdbd;
+  border-radius: 8px;
+  text-align: center;
+
+  text-align: center;
+  padding: 8px;
+  margin: 16px 0;
+`;
+
+export const Stores = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  text-decoration: none;
+  margin-left: 36px;
+`;
 
-  div {
-    text-align: right;
-    margin-right: 10px;
+export const StoresOptionsTitle = styled.span`
+  display: block;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+`;
 
-    strong {
-      display: block;
-      color: #fff;
-    }
-
-    span {
-      font-size: 12px;
-      color: #999;
+export const StoreButton = styled.div`
+  display: flex;
+  button {
+    background: none;
+    border: 0;
+    padding: 6px;
+    cursor: pointer;
+    img {
+      height: 24px;
     }
   }
 `;

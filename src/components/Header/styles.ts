@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 export const Container = styled.header`
   ${({ theme }) => css`
@@ -9,12 +9,12 @@ export const Container = styled.header`
     background: ${theme.colors.primary};
     padding: 0 32px;
   `}
-`;
+`
 
 export const LogoContainer = styled.img`
   height: 80px;
   margin-right: 36px;
-`;
+`
 
 export const SearchBarComponent = styled.input`
   width: 100%;
@@ -26,7 +26,7 @@ export const SearchBarComponent = styled.input`
   text-align: center;
   padding: 8px;
   margin: 16px 0;
-`;
+`
 
 export const Stores = styled.div`
   display: flex;
@@ -34,14 +34,14 @@ export const Stores = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 36px;
-`;
+`
 
 export const StoresOptionsTitle = styled.span`
   display: block;
   font-size: 12px;
   text-align: center;
   color: #fff;
-`;
+`
 
 export const StoreButton = styled.div`
   display: flex;
@@ -54,4 +54,4 @@ export const StoreButton = styled.div`
       height: 24px;
     }
   }
-`;
+`

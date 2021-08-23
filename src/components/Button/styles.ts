@@ -1,5 +1,6 @@
-import styled, { css } from "styled-components";
-import { darken } from "polished";
+import { darken } from 'polished'
+
+import styled, { css } from 'styled-components'
 
 export const StyledButton = styled.button`
   ${({ theme }) => css`
@@ -18,5 +19,9 @@ export const StyledButton = styled.button`
     &:hover {
       background: ${darken(0.06, theme.colors.primary)};
     }
+
+    &:disabled {
+      background: ${theme.colors.lightGray};
+    }
   `}
-`;
+`

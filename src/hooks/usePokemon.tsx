@@ -3,32 +3,33 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  useState,
-} from "react";
-import { api } from "../services/api";
+  useState
+} from 'react'
+
+import { api } from 'services/api'
 
 interface PokemonProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export interface PokemonProps {
-  name: string;
-  url: string;
-  id: number;
-  price: number;
-  amount: number;
-  image: string;
+  name: string
+  url: string
+  id: number
+  price: number
+  amount: number
+  image: string
 }
 
 interface PokemonContextData {
-  pokemons: PokemonProps[];
-  generation: PokemonProps[];
-  generationId: number;
-  filteredPokemons: PokemonProps[];
-  search: string;
-  setSearch: (poke: string) => void;
-  selectGeneration: (value: number) => void;
-  setGenerationId: (value: number) => void;
+  pokemons: PokemonProps[]
+  generation: PokemonProps[]
+  generationId: number
+  filteredPokemons: PokemonProps[]
+  search: string
+  setSearch: (poke: string) => void
+  selectGeneration: (value: number) => void
+  setGenerationId: (value: number) => void
 }
 
 export const PokemonContextDefaultValues = {
@@ -36,28 +37,28 @@ export const PokemonContextDefaultValues = {
   generation: [],
   generationId: 1,
   filteredPokemons: [],
-  search: "",
+  search: '',
   setSearch: () => null,
   selectGeneration: () => null,
-  setGenerationId: () => null,
-};
+  setGenerationId: () => null
+}
 
 const PokemonContext = createContext<PokemonContextData>(
   PokemonContextDefaultValues
-);
+)
 
 export function PokemonProvider({
-  children,
+  children
 }: PokemonProviderProps): JSX.Element {
-  const [pokemons, setPokemons] = useState<PokemonProps[]>([]);
-  const [search, setSearch] = useState("");
-  const [generationId, setGenerationId] = useState<number>(1);
-  const [generation, setGeneration] = useState<PokemonProps[]>([]);
-  const [filteredPokemons, setFilteredPokemons] = useState<PokemonProps[]>([]);
+  const [pokemons, setPokemons] = useState<PokemonProps[]>([])
+  const [search, setSearch] = useState('')
+  const [generationId, setGenerationId] = useState<number>(1)
+  const [generation, setGeneration] = useState<PokemonProps[]>([])
+  const [filteredPokemons, setFilteredPokemons] = useState<PokemonProps[]>([])
 
   useEffect(() => {
     async function loadPokemons() {
-      const response = await api.get(`pokemon?limit=386`);
+      const response = await api.get(`pokemon?limit=386`)
 
       const pokemonsFormated = response.data.results.map(
         (pokemon: PokemonProps, index: number) => ({
@@ -67,15 +68,15 @@ export function PokemonProvider({
           amount: 5,
           image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             index + 1
-          }.png`,
+          }.png`
         })
-      );
+      )
 
-      setPokemons(pokemonsFormated);
+      setPokemons(pokemonsFormated)
     }
 
-    loadPokemons();
-  }, [setPokemons]);
+    loadPokemons()
+  }, [setPokemons])
 
   const selectGeneration = (value: number) => {
     setGeneration(
@@ -84,15 +85,15 @@ export function PokemonProvider({
         : value === 2
         ? pokemons.slice(151, 251)
         : pokemons.slice(251)
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     const filteredPokes = generation.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilteredPokemons(filteredPokes);
-  }, [search, generation]);
+    )
+    setFilteredPokemons(filteredPokes)
+  }, [search, generation])
 
   return (
     <PokemonContext.Provider
@@ -104,15 +105,16 @@ export function PokemonProvider({
         search,
         setSearch,
         selectGeneration,
-        setGenerationId,
-      }}>
+        setGenerationId
+      }}
+    >
       {children}
     </PokemonContext.Provider>
-  );
+  )
 }
 
 export function usePokemon(): PokemonContextData {
-  const context = useContext(PokemonContext);
+  const context = useContext(PokemonContext)
 
-  return context;
+  return context
 }

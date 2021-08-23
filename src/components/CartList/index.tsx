@@ -1,44 +1,52 @@
-import Button from "components/Button";
 import {
   MdDelete,
   MdAddCircleOutline,
-  MdRemoveCircleOutline,
-} from "react-icons/md";
-import { useCart } from "../../hooks/useCart";
+  MdRemoveCircleOutline
+} from 'react-icons/md'
 
-import { PokemonProps } from "../../hooks/usePokemon";
-import { formatPrice } from "../../util/format";
-import * as S from "./styles";
+import { formatPrice } from 'util/format'
 
-const CartList = (): JSX.Element => {
-  const { cart, clearCart, updatePokemonsAmount, removePokemon } = useCart();
+import { useCart } from 'hooks/useCart'
+import { PokemonProps } from 'hooks/usePokemon'
+
+import Button from 'components/Button'
+
+import * as S from './styles'
+
+interface CartLiatProps {
+  onOpenOrderModal: () => void
+}
+
+const CartList = ({ onOpenOrderModal }: CartLiatProps): JSX.Element => {
+  const { cart, updatePokemonsAmount, removePokemon } = useCart()
 
   const total = formatPrice(
     cart.reduce(
       (sumTotal, pokemon) => pokemon.price * pokemon.amount + sumTotal,
       0
     )
-  );
+  )
 
   function handleProductIncrement(pokemon: PokemonProps) {
-    const incrementAmount = pokemon.amount + 1;
+    const incrementAmount = pokemon.amount + 1
     return updatePokemonsAmount({
       pokemonId: pokemon.id,
-      amount: incrementAmount,
-    });
+      amount: incrementAmount
+    })
   }
 
   function handleProductDecrement(pokemon: PokemonProps) {
-    const discrementAmount = pokemon.amount - 1;
+    const discrementAmount = pokemon.amount - 1
     return updatePokemonsAmount({
       pokemonId: pokemon.id,
-      amount: discrementAmount,
-    });
+      amount: discrementAmount
+    })
   }
 
   function handleRemovePokemon(pokemonId: number) {
-    removePokemon(pokemonId);
+    removePokemon(pokemonId)
   }
+
   return (
     <S.Wrapper>
       <S.ProductTable>
@@ -48,7 +56,7 @@ const CartList = (): JSX.Element => {
 
         {cart.map((pokemon) => {
           return (
-            <S.CartListItem>
+            <S.CartListItem key={pokemon.id}>
               <S.ItemImage src={pokemon.image} alt={pokemon.name} />
               <S.ItemDescription>
                 <strong>{pokemon.name}</strong>
@@ -59,7 +67,8 @@ const CartList = (): JSX.Element => {
                   type="button"
                   data-testid="decrement-product"
                   disabled={pokemon.amount <= 1}
-                  onClick={() => handleProductDecrement(pokemon)}>
+                  onClick={() => handleProductDecrement(pokemon)}
+                >
                   <MdRemoveCircleOutline size={20} />
                 </button>
                 <input
@@ -71,7 +80,8 @@ const CartList = (): JSX.Element => {
                 <button
                   type="button"
                   data-testid="increment-product"
-                  onClick={() => handleProductIncrement(pokemon)}>
+                  onClick={() => handleProductIncrement(pokemon)}
+                >
                   <MdAddCircleOutline size={20} />
                 </button>
               </S.ItemAmount>
@@ -82,12 +92,13 @@ const CartList = (): JSX.Element => {
                 <button
                   type="button"
                   data-testid="remove-product"
-                  onClick={() => handleRemovePokemon(pokemon.id)}>
+                  onClick={() => handleRemovePokemon(pokemon.id)}
+                >
                   <MdDelete size={20} />
                 </button>
               </S.DeleteIcon>
             </S.CartListItem>
-          );
+          )
         })}
       </S.ProductTable>
 
@@ -97,10 +108,14 @@ const CartList = (): JSX.Element => {
           <strong>{total}</strong>
         </S.Total>
 
-        <Button title="Finalizar pedido" onClick={clearCart} />
+        <Button
+          title="Finalizar pedido"
+          disabled={cart.length === 0}
+          onClick={onOpenOrderModal}
+        />
       </S.Footer>
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default CartList;
+export default CartList

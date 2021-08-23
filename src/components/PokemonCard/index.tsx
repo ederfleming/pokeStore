@@ -1,20 +1,23 @@
-import { useCart } from "hooks/useCart";
-import { formatPrice } from "util/format";
-import * as S from "./styles";
-import Button from "components/Button";
+import { formatPrice } from 'util/format'
+
+import { useCart } from 'hooks/useCart'
+
+import Button from 'components/Button'
+
+import * as S from './styles'
 
 export type PokemonCardProps = {
-  name: string;
-  id: number;
-  price: number;
-  image: string;
-};
+  name: string
+  id: number
+  price: number
+  image: string
+}
 
 const PokemonCard = ({ id, name, image, price }: PokemonCardProps) => {
-  const { addPokemon } = useCart();
+  const { addPokemon } = useCart()
 
   function handleAddPokemon(id: number) {
-    addPokemon(id);
+    addPokemon(id)
   }
   return (
     <S.Wrapper>
@@ -28,7 +31,7 @@ const PokemonCard = ({ id, name, image, price }: PokemonCardProps) => {
         />
       </S.PokemonItem>
     </S.Wrapper>
-  );
-};
+  )
+}
 
-export default PokemonCard;
+export default PokemonCard

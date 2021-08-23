@@ -1,5 +1,6 @@
-import styled, { css } from "styled-components";
-import { lighten } from "polished";
+import { lighten } from 'polished'
+
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
@@ -9,33 +10,33 @@ export const Wrapper = styled.div`
     background: ${theme.colors.white};
     border-radius: 4px;
   `}
-`;
+`
 
-export const ProductTable = styled.div``;
+export const ProductTable = styled.div``
 
 export const CartListHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
-`;
+`
 export const CartListHeaderTitle = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.lightGray}
     text-align: left;
     padding: 12px;
   `}
-`;
+`
 
 export const CartListItem = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 export const ItemImage = styled.img`
   height: 50px;
-`;
+`
 export const ItemDescription = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -55,7 +56,7 @@ export const ItemDescription = styled.div`
       font-weight: bold;
     }
   `}
-`;
+`
 
 export const ItemAmount = styled.div`
   ${({ theme }) => css`
@@ -86,7 +87,7 @@ export const ItemAmount = styled.div`
       }
     }
   `}
-`;
+`
 
 export const ItemPrice = styled.div`
   ${({ theme }) => css`
@@ -96,7 +97,7 @@ export const ItemPrice = styled.div`
       font-size: 12px;
     }
   `}
-`;
+`
 
 export const Footer = styled.footer`
   width: 100%;
@@ -105,7 +106,7 @@ export const Footer = styled.footer`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 export const DeleteIcon = styled.div`
   ${({ theme }) => css`
@@ -126,7 +127,7 @@ export const DeleteIcon = styled.div`
       }
     }
   `}
-`;
+`
 
 export const Total = styled.div`
   display: flex;
@@ -143,4 +144,4 @@ export const Total = styled.div`
     font-size: 18px;
     margin-left: 5px;
   }
-`;
+`

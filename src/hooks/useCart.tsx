@@ -1,129 +1,130 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { toast } from "react-toastify";
-import { PokemonProps, usePokemon } from "./usePokemon";
+import { createContext, ReactNode, useContext, useState } from 'react'
+import { toast } from 'react-toastify'
+
+import { PokemonProps, usePokemon } from './usePokemon'
 
 interface CartProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 interface UpdatePokemonsAmount {
-  pokemonId: number;
-  amount: number;
+  pokemonId: number
+  amount: number
 }
 
 interface CartContextData {
-  cart: PokemonProps[];
-  clearCart: () => void;
-  addPokemon: (pokemonId: number) => Promise<void>;
-  removePokemon: (pokemonId: number) => void;
-  updatePokemonsAmount: ({ pokemonId, amount }: UpdatePokemonsAmount) => void;
+  cart: PokemonProps[]
+  clearCart: () => void
+  addPokemon: (pokemonId: number) => Promise<void>
+  removePokemon: (pokemonId: number) => void
+  updatePokemonsAmount: ({ pokemonId, amount }: UpdatePokemonsAmount) => void
 }
 
-const CartContext = createContext<CartContextData>({} as CartContextData);
+const CartContext = createContext<CartContextData>({} as CartContextData)
 
 export function CartProvider({ children }: CartProviderProps): JSX.Element {
-  const { pokemons } = usePokemon();
+  const { pokemons } = usePokemon()
   const [cart, setCart] = useState<PokemonProps[]>(() => {
-    const storagedCart = localStorage.getItem("@PokeStore:cart");
+    const storagedCart = localStorage.getItem('@PokeStore:cart')
 
     if (storagedCart) {
-      return JSON.parse(storagedCart);
+      return JSON.parse(storagedCart)
     }
 
-    return [];
-  });
+    return []
+  })
 
   const clearCart = () => {
-    setCart([]);
-    localStorage.setItem("@PokeStore:cart", JSON.stringify([]));
-  };
+    setCart([])
+    localStorage.setItem('@PokeStore:cart', JSON.stringify([]))
+  }
   const addPokemon = async (pokemonId: number) => {
     try {
-      let isProductInCart = false;
-      let isProductInStock = true;
+      let isProductInCart = false
+      let isProductInStock = true
 
-      const PokeAmount = pokemons.filter((pokemon) => pokemon.id === pokemonId);
+      const PokeAmount = pokemons.filter((pokemon) => pokemon.id === pokemonId)
 
       const updatedCart = cart.map((pokemon) => {
         if (pokemonId === pokemon.id) {
-          isProductInCart = true;
-          const newAmount = pokemon.amount + 1;
+          isProductInCart = true
+          const newAmount = pokemon.amount + 1
           if (PokeAmount[0].amount < newAmount) {
-            isProductInStock = false;
-            toast.error("Quantidade solicitada fora de estoque");
+            isProductInStock = false
+            toast.error('Quantidade solicitada fora de estoque')
           } else {
-            pokemon.amount = newAmount;
+            pokemon.amount = newAmount
           }
         }
-        return pokemon;
-      });
+        return pokemon
+      })
 
       if (!isProductInCart) {
         const pokeResponse = pokemons.filter(
           (pokemon) => pokemon.id === pokemonId
-        );
+        )
 
-        updatedCart.push({ ...pokeResponse[0], amount: 1 });
+        updatedCart.push({ ...pokeResponse[0], amount: 1 })
       }
       if (isProductInStock) {
-        setCart(updatedCart);
-        localStorage.setItem("@PokeStore:cart", JSON.stringify(updatedCart));
+        setCart(updatedCart)
+        localStorage.setItem('@PokeStore:cart', JSON.stringify(updatedCart))
       }
     } catch {
-      toast.error("Erro na adição do produto");
+      toast.error('Erro na adição do produto')
     }
-  };
+  }
 
   const removePokemon = async (pokemonId: number) => {
     try {
-      const newCart = cart.filter((pokemon) => pokemon.id !== pokemonId);
+      const newCart = cart.filter((pokemon) => pokemon.id !== pokemonId)
 
       if (newCart.length === cart.length) {
-        throw new Error();
+        throw new Error()
       }
 
-      setCart(newCart);
-      localStorage.setItem("@PokeStore:cart", JSON.stringify(newCart));
+      setCart(newCart)
+      localStorage.setItem('@PokeStore:cart', JSON.stringify(newCart))
     } catch {
-      toast.error("Erro na remoção do produto");
-      return;
+      toast.error('Erro na remoção do produto')
+      return
     }
-  };
+  }
 
   const updatePokemonsAmount = async ({
     pokemonId,
-    amount,
+    amount
   }: UpdatePokemonsAmount) => {
     try {
       if (amount <= 0) {
-        return;
+        return
       }
       const pokeResponse = pokemons.filter(
         (pokemon) => pokemon.id === pokemonId
-      );
+      )
 
       if (amount > pokeResponse[0].amount) {
-        toast.error("Quantidade solicitada fora de estoque");
-        return;
+        toast.error('Quantidade solicitada fora de estoque')
+        return
       }
 
       const updatedCart = cart.map((pokemon) => {
         if (pokemonId === pokemon.id) {
           if (pokeResponse[0].amount < amount) {
-            toast.error("Quantidade solicitada fora de estoque");
+            toast.error('Quantidade solicitada fora de estoque')
           } else {
-            pokemon.amount = amount;
+            pokemon.amount = amount
           }
         }
-        return pokemon;
-      });
-      localStorage.setItem("@PokeStore:cart", JSON.stringify(updatedCart));
+        return pokemon
+      })
+      localStorage.setItem('@PokeStore:cart', JSON.stringify(updatedCart))
 
-      return setCart(updatedCart);
+      return setCart(updatedCart)
     } catch (err) {
-      toast.error("Erro na alteração de quantidade do produto");
+      toast.error('Erro na alteração de quantidade do produto')
     }
-  };
+  }
 
   return (
     <CartContext.Provider
@@ -132,15 +133,16 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         clearCart,
         addPokemon,
         removePokemon,
-        updatePokemonsAmount,
-      }}>
+        updatePokemonsAmount
+      }}
+    >
       {children}
     </CartContext.Provider>
-  );
+  )
 }
 
 export function useCart(): CartContextData {
-  const context = useContext(CartContext);
+  const context = useContext(CartContext)
 
-  return context;
+  return context
 }
